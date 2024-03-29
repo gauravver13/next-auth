@@ -20,7 +20,7 @@ export async function POST(request: NextRequest){
             return NextResponse.json({error: "User already exists"}, {status: 400})
         }
 
-        const salt = bcryptjs.genSaltSync(10);
+        const salt = await bcryptjs.genSalt(10);
 
         const hashedPassword = await bcryptjs.hash(password, salt)
 
@@ -38,7 +38,7 @@ export async function POST(request: NextRequest){
             await sendEmail({email, emailType: "VERIFY", userId: savedUser._id})
 
             return NextResponse.json({message: "User registered successfully", success: true, savedUser            
-    })
+            })
         
     } catch (error: any) {
         return NextResponse.json({error: error.message}, {status: 500})
