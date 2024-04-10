@@ -1,10 +1,9 @@
-
-import mongooose from "mongoose";
+import mongoose from "mongoose";
 
 export async function connect(){
     try {
-        mongooose.connect(process.env.MONGO_URI!)
-        const connection = mongooose.connection
+        mongoose.connect(process.env.MONGO_URI!)
+        const connection = mongoose.connection
 
         connection.on('connected', () => {
             console.log('MongoDB Connected');

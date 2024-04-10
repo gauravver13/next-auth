@@ -17,7 +17,6 @@ export const sendEmail = async({email, emailType, userId}:any)  => {
                 forgotPasswordTokenExpiry: Date.now() + 3600000 })
         }
 
-
         // const transporter = nodemailer.createTransport({
         //     host: "smtp.ethereal.email",
         //     port: 587,
@@ -40,9 +39,10 @@ export const sendEmail = async({email, emailType, userId}:any)  => {
           const mailOptions = {
             from: 'gauravgav7@gmail.com', // sender address
             to: email, // list of receivers
-            subject: emailType === 'VERIFY' ? "Verify your email": "RESET YOUR PASSWORD", // Subject line
+            subject: emailType === 'VERIFY' ? "Verify your email" : "RESET YOUR PASSWORD", // Subject line
             html: `<p>Click  
-                      <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}"> here </a> 
+                      <a href="${process.env.DOMAIN}/
+                      verifyemail?token=${hashedToken}"> here </a> 
                       to ${emailType === "VERIFY" ? "verify your email" : "reset your password"} 
                       or copy and paste the link below in your browser. 
                       <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
