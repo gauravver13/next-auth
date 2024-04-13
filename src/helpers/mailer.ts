@@ -1,20 +1,31 @@
 import User from '@/models/userModel';
 import nodemailer from 'nodemailer'
 import  bcryptjs  from "bcryptjs";
+import { set } from 'mongoose';
 
-export const sendEmail = async({email, emailType, userId}:any)  => {
+export const sendEmail = async({email, emailType, userId}: any)  => {
     try {
         const hashedToken = await bcryptjs.hash(userId.toString(), 10)
 
+        console.log(typeof emailType);
+        
+
         // TODO: Configure mail for usage.
         if(emailType === "VERIFY") {
-          await User.findByIdAndUpdate(userId, 
-            {verifyToken: hashedToken, verifyTokenExpiry: Date.now() + 3600000}
+          const updatedUser = await User.findByIdAndUpdate(userId, { 
+              $set: {  
+                verifyToken: hashedToken, 
+                verifyTokenExpiry: Date.now() + 3600000
+                }
+              }
             )
         } else if (emailType === "RESET") {
-            await User.findByIdAndUpdate(userId,
-              { forgotPasswordToken: hashedToken,
-                forgotPasswordTokenExpiry: Date.now() + 3600000 })
+            await User.findByIdAndUpdate(userId, 
+            {  $set: { forgotPasswordToken: hashedToken,
+                forgotPasswordTokenExpiry: Date.now() + 3600000 
+              }
+            }
+            )
         }
 
         // const transporter = nodemailer.createTransport({
@@ -31,7 +42,7 @@ export const sendEmail = async({email, emailType, userId}:any)  => {
           port: 2525,
           auth: {
             user: "54d27cff47c31d",   // 🔥❌
-            pass: "db153c10104868"    //❌
+            pass: "db153c10104868"    // ❌
           }
         });
 
