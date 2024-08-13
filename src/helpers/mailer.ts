@@ -20,7 +20,7 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
             port: 587,
             secure: false, // Use `true` for port 465, `false` for all other ports
             auth: {
-              user: "maddison53@ethereal.email",
+              user: "maddison53@ethereal.email",  
               pass: "jn7jnAPss4f63QBp6D",
             },
           });
@@ -35,7 +35,10 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
             // plain text body
             // text: "Hello world?", /-mail text-\ 
             // html body
-            html: "<b>Hello world?</b>", 
+            html: `<p>click <a href="${process.env.DOMAIN}/verifyemail?token=${hashedToken}">here</a> to ${emailType === 'VERIFY' ? "Verify your email": "Reset your password"}
+            or copy and paste the link below in your browser.
+            </br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
+            </p>`, 
         }
 
         const mailResponse = await transporter.sendMail(mailOption);

@@ -10,11 +10,16 @@ connect()
 
 export async function POST(request: NextRequest) {
     try {
+        // userData 
         const reqBody = await request.json()
+        
+        // Userdata - email, username, password!
         const {email, username, password} = reqBody;
-        //Validation
+        
+        
         console.log(reqBody);
-
+        
+        // Validation- if user exist or not 
         const user = await User.findOne({email})
 
         console.log(user);
@@ -26,6 +31,7 @@ export async function POST(request: NextRequest) {
             )
         }
 
+        // Password..!
         const salt = await bcryptjs.genSalt(10);
         const hashedPassword = await bcryptjs.hash(password, salt)
         
