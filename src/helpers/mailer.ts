@@ -3,10 +3,10 @@ import bcryptjs from "bcryptjs";
 import User from '@/models/userModel';
 
 export const sendEmail = async ({email, emailType, userId}:any) => {
-    try {
-
+    try { 
         const hashedToken = await bcryptjs.hash(userId.toString(), 10);
-
+        
+        console.log('dataHashed');
         if (emailType === 'VERIFY') {
             await User.findByIdAndUpdate(userId, {verifyToken: hashedToken, verifyTokenExpiry: Date.now()+360000}
         )
@@ -16,12 +16,12 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
         }
     
         const transporter = nodemailer.createTransport({
-            host: "smtp.ethereal.email",
-            port: 587,
+            host: "sandbox.smtp.mailtrap.io",
+            port: 2525,
             secure: false, // Use `true` for port 465, `false` for all other ports
             auth: {
-              user: "maddison53@ethereal.email",  
-              pass: "jn7jnAPss4f63QBp6D",
+              user: process.env.USER,  
+              pass: process.env.PASSWORD,
             },
           });
 
@@ -43,7 +43,10 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
 
         const mailResponse = await transporter.sendMail(mailOption);
 
-        return mailResponse
+        console.log('email sent');
+        
+
+        return mailResponse;
 
     } catch (error:any) {
         throw new Error(error.message)

@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         // Validation- if user exist or not 
         const user = await User.findOne({email})
 
-        console.log(user);
+        console.log("User:",user);
 
         if(user) {
             return NextResponse.json(
@@ -43,9 +43,12 @@ export async function POST(request: NextRequest) {
 
         const savedUser = await newUser.save()
 
+        console.log('savedUser: ', savedUser);
+        
+
         // send Verification email 
         await sendEmail({email, emailType: 'VERIFY', userId: savedUser._id})
-
+        
         return NextResponse.json(
             {
                 message: "User verified Successfully",
@@ -54,7 +57,7 @@ export async function POST(request: NextRequest) {
                 savedUser
             }
         )
-
+        
     } catch (error: any) {
         return NextResponse.json(
             {error: error.message},
