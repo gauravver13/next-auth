@@ -22,7 +22,7 @@ export async function POST(request: NextRequest) {
         // Validation- if user exist or not 
         const user = await User.findOne({email})
 
-        console.log("User:",user);
+        console.log("User:", user);
 
         if(user) {
             return NextResponse.json(
@@ -59,10 +59,10 @@ export async function POST(request: NextRequest) {
         )
         
     } catch (error: any) {
+
         return NextResponse.json(
             {error: error.message},
             {status: 500 }
         )
-
     }
 }
