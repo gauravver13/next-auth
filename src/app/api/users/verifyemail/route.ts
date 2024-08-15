@@ -33,9 +33,12 @@ export async function POST(request: NextRequest) {
             }
         )}
 
+        console.log('token sent');
+        
+
         user.isVerified = true;
-        user.verifyToken = null;
-        user.verifyTokenExpiry = null;
+        user.verifyToken = undefined;
+        user.verifyTokenExpiry = undefined;
 
         console.log(user);
         

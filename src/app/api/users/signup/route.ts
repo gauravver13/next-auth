@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
         
         return NextResponse.json(
             {
-                message: "User verified Successfully",
+                message: "User registered Successfully",
                 success: true,
                 status: 200,
                 savedUser

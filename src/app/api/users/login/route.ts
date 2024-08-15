@@ -43,6 +43,8 @@ export async function POST(request: NextRequest){
                 { status: 400 }
             )
         }
+        console.log('Password matched');
+        
         
         const tokenData = {
             id: user._id,
