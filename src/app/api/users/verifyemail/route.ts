@@ -44,6 +44,9 @@ export async function POST(request: NextRequest) {
         
         await user.save();
 
+        console.log('User email token verified!!');
+        
+
         return NextResponse.json(
             {
                 message: "User Verified Successfully",

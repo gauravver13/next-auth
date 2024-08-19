@@ -52,7 +52,9 @@ export async function POST(request: NextRequest){
             email: user.email
         }
 
-        const token = jwt.sign(tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
+        const token = await jwt.sign( tokenData, process.env.TOKEN_SECRET!, { expiresIn: '1d' })
+        console.log(token);
+        
 
         const response = NextResponse.json(
             {
@@ -68,6 +70,10 @@ export async function POST(request: NextRequest){
             { httpOnly: true }
         )
 
+        console.log('response seted in!');
+        console.log(response);
+        
+        
         return response;
 
         // jwt.sign({

@@ -8,10 +8,20 @@ export const sendEmail = async ({email, emailType, userId}:any) => {
         
         console.log('dataHashed');
         if (emailType === 'VERIFY') {
-            await User.findByIdAndUpdate(userId, {verifyToken: hashedToken, verifyTokenExpiry: Date.now()+360000}
+            await User.findByIdAndUpdate(userId, {
+                $set: {
+                    verifyToken: hashedToken,
+                    verifyTokenExpiry: Date.now()+360000
+                }
+            }
         )
         } else if(emailType === 'RESET') {
-            await User.findByIdAndUpdate(userId, {forgotPassword: hashedToken, forgotPasswordExpiry: Date.now() + 3600000}
+            await User.findByIdAndUpdate(userId, {
+                $set: {
+                    forgotPassword: hashedToken,
+                    forgotPasswordExpiry: Date.now() + 3600000
+                }
+            }
         )
         }
     
