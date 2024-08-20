@@ -3,7 +3,7 @@ import axios from 'axios';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
+import toast, { Toaster } from 'react-hot-toast';
 
 export default function LoginPage() {
     const router = useRouter()
@@ -63,7 +63,9 @@ export default function LoginPage() {
                     onClick={onLogin}
                     className='p-4 bg-blue-600 hover:bg-blue-800 mt-6 rounded-lg mb-4 font-bold'
                     >
+                    
                     {buttonDisabled? "Fill the credentials": "Login"}
+                    <Toaster />
             </button>
 
             <Link href='/signup' className='items-start text-blue-400 -mt-3 text-wrap'>Not a member? Signup</Link>
